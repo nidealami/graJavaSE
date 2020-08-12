@@ -27,4 +27,15 @@ public class Player {
     public String getCurrentLocationDescription() {
         return this.currentLocation.getDescription();
     }
+
+    public boolean move(Direction direction) {
+       Location nextLocation= this.currentLocation.getNextLocation(direction);
+       if (nextLocation!=null) {
+           this.currentLocation=nextLocation;
+           return true;
+
+       }else{
+           return false;
+       }
+    }
 }
