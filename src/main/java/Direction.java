@@ -1,12 +1,17 @@
 public enum Direction {
-    N("polnoc"), S("poludnie"), W("zachod"), E("wschod");
-
+    N("north"),S("south"),E("east"),W("west"),D("down"),U("up");
 
     private String directionDescription;
 
-    Direction(String directionDescription) {
+    private Direction(String directionDescription) {
         this.directionDescription = directionDescription;
     }
+
+    @Override
+    public String toString() {
+        return directionDescription;
+    }
+
 
     public String getDirectionDescription() {
         return directionDescription;

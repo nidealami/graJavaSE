@@ -1,4 +1,4 @@
-import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -9,15 +9,20 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("What's your name?");
-        String PlayerName = scanner.nextLine();
-        System.out.println("Hi " + PlayerName);
+        String playerName = scanner.nextLine();
+        System.out.println("Hi " + playerName);
 
-        Player player = new Player(PlayerName);
+        Player player = new Player(playerName, 100, 10);
+
         Location startLocation = new Location("Small Room", "You are in small room, darm one. Single bed only and books on the floor...");
         Location secondLocation = new Location("Dark corridor", "...");
 
         startLocation.addExit(Direction.N, secondLocation);
         secondLocation.addExit(Direction.S, startLocation);
+
+        NPC ork = new NPC("Ork", 50, 5);
+
+        startLocation.addNpcs(ork);
 
         player.setCurrentLocation(startLocation);
 
@@ -40,26 +45,49 @@ public class Main {
     }
 
     private static void actOnCommand(String command, Player player) {
-        switch (command) {
+        command = command.toLowerCase();
+
+        String[] splitted = command.split(" ");
+
+        switch (splitted[0]) {
             case "n":
-            case "polnoc":
+            case "north":
                 move(Direction.N, player);
                 break;
             case "s":
-            case "poludnie":
+            case "south":
                 move(Direction.S, player);
                 break;
             case "w":
-            case "zachod":
+            case "west":
                 move(Direction.W, player);
                 break;
             case "e":
-            case "wschod":
+            case "east":
                 move(Direction.E, player);
+                break;
+            case "kill":
+                attack(splitted[1], player);
                 break;
             default:
                 System.out.println("O co ci chodzi? Wybierz: n lub s lub w lub e");
         }
+    }
+
+    private static void attack(String target, Player player) {
+        NPC targetNPC = player.getNearbyNPC(target);
+        if (target != null) {
+            beginCombat(player, targetNPC);
+        } else {
+            System.out.println("There is no one like that around");
+        }
+    }
+
+    private static void beginCombat(Player player, NPC targetNPC) {
+        FightThread ft = new FightThread(player, targetNPC);
+        Thread t = new Thread(ft);
+
+        t.start();
     }
 
     private static void move(Direction direction, Player player) {
@@ -70,7 +98,5 @@ public class Main {
             System.out.println("nie możesz isc tedy");
         }
     }
-
-
 }
 
