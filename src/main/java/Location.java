@@ -18,7 +18,7 @@ public class Location {
     }
 
     public String getDescription() {
-        return this.shortDescription + "\n" + this.longDescription + "\n " + "widoczne wyjścia: " + getExitString() + "\n ";
+        return this.shortDescription + "\n" + this.longDescription + "\n"+"Visible Exit" + getExitString();
     }
 
     public void addExit(Direction direction, Location location) {
@@ -47,8 +47,8 @@ public class Location {
     }
 
     public boolean isThereNPC(String npcName) {
-        for(NPC npc:this.npcs){
-            if (npc.getName().equalsIgnoreCase(npcName)){
+        for (NPC npc : this.npcs) {
+            if (npc.getName().equalsIgnoreCase(npcName)) {
                 return true;
             }
         }
@@ -64,7 +64,6 @@ public class Location {
         }
         return null;
     }
-
 
 
 }

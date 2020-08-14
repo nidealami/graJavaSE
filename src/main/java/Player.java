@@ -55,4 +55,8 @@ public class Player {
     public void damageTaken(int hit) {
         this.health=this.health=hit;
     }
+
+    public boolean isThereNPCNearby(NPC targetNPC) {
+        return this.currentLocation.isThereNPC(targetNPC.getName());
+    }
 }

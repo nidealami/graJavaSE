@@ -27,6 +27,13 @@ public class FightThread implements Runnable {
     public void run() {
         int hit = 0;
         while (player.isAlive() && targetNPC.isAlive()) {
+
+            boolean targetStillHere = player.isThereNPCNearby(targetNPC);
+
+            if (targetStillHere) {
+                System.out.println("Your target is no longer alive");
+                return;
+            }
             try {
                 hit = calcHitStrenght(player.getStrength());
                 showHitMessage(targetNPC, hit);
@@ -40,11 +47,13 @@ public class FightThread implements Runnable {
                 e.printStackTrace();
             }
         }
-        if (player.isAlive()) {
+        if (player.isAlive()&&(!targetNPC.isAlive())) {
             System.out.println("Target died");
 
-        } else {
+        } else if (!player.isAlive()&&(targetNPC.isAlive())){
             System.out.println("Sorry, You died");
+        } else {
+            System.out.println("Run away!");
         }
 
     }
