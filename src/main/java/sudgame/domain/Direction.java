@@ -1,4 +1,4 @@
-package domain;
+package sudgame.domain;
 
 public enum Direction {
     N("north"),S("south"),E("east"),W("west"),D("down"),U("up");

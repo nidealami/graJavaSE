@@ -1,4 +1,4 @@
-package domain;
+package sudgame.domain;
 
 import com.google.common.base.Joiner;
 
@@ -61,5 +61,8 @@ public class Location {
             }
         }
         return null;
+    }
+
+    public void addNpc(NPC ork) {
     }
 }

@@ -1,22 +1,23 @@
 package sudgame;
 
-import repository.LocationRepository;
-import domain.Direction;
-import domain.NPC;
-import domain.Player;
+import sudgame.repository.LocationRepository;
+import sudgame.domain.Player;
+import sudgame.services.CommandParser;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        LocationRepository locationRepository=new LocationRepository();
+        LocationRepository locationRepository = new LocationRepository();
+        CommandParser parser = new CommandParser();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("What's your name?");
         String playerName = scanner.nextLine();
 
-        Player player = new Player(playerName, 100, 10);
+        Player player = new Player(playerName, 100, 10, 25);
 
         player.setCurrentLocation(locationRepository.getStartLocation());
 
@@ -25,8 +26,7 @@ public class Main {
         String command = "";
         while (!command.equals("quit")) {
             command = readPlayerInput(scanner);
-
-            actOnCommand(command, player);
+            parser.actOnCommand(command, player);
         }
         System.out.println("Goodbye!");
     }
@@ -38,59 +38,5 @@ public class Main {
         return command;
     }
 
-    private static void actOnCommand(String command, Player player) {
-        command = command.toLowerCase();
-
-        String[] splitted = command.split(" ");
-
-        switch (splitted[0]) {
-            case "n":
-            case "north":
-                move(Direction.N, player);
-                break;
-            case "s":
-            case "south":
-                move(Direction.S, player);
-                break;
-            case "w":
-            case "west":
-                move(Direction.W, player);
-                break;
-            case "e":
-            case "east":
-                move(Direction.E, player);
-                break;
-            case "kill":
-                attack(splitted[1], player);
-                break;
-            default:
-                System.out.println("O co ci chodzi? Wybierz: n lub s lub w lub e");
-        }
-    }
-
-    private static void attack(String target, Player player) {
-        NPC targetNPC = player.getNearbyNPC(target);
-        if (target != null) {
-            beginCombat(player, targetNPC);
-        } else {
-            System.out.println("There is no one like that around");
-        }
-    }
-
-    private static void beginCombat(Player player, NPC targetNPC) {
-        FightThread ft = new FightThread(player, targetNPC);
-        Thread t = new Thread(ft);
-
-        t.start();
-    }
-
-    private static void move(Direction direction, Player player) {
-        boolean hasMoved = player.move(direction);
-        if (hasMoved) {
-            System.out.println(player.getCurrentLocationDescription());
-        } else {
-            System.out.println("nie możesz isc tedy");
-        }
-    }
 }
 
