@@ -1,3 +1,8 @@
+package sudgame;
+
+import domain.NPC;
+import domain.Player;
+
 import java.util.Random;
 
 public class FightThread implements Runnable {

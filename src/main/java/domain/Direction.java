@@ -1,3 +1,5 @@
+package domain;
+
 public enum Direction {
     N("north"),S("south"),E("east"),W("west"),D("down"),U("up");
 
@@ -9,11 +11,6 @@ public enum Direction {
 
     @Override
     public String toString() {
-        return directionDescription;
-    }
-
-
-    public String getDirectionDescription() {
         return directionDescription;
     }
 }

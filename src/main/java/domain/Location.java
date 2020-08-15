@@ -1,14 +1,14 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package domain;
+
+import com.google.common.base.Joiner;
+
+import java.util.*;
 
 public class Location {
     private String longDescription;
     private String shortDescription;
     private Map<Direction, Location> exit;
     private List<NPC> npcs;
-
 
     public Location(String shortDescription, String longDescription) {
         this.longDescription = longDescription;
@@ -18,7 +18,7 @@ public class Location {
     }
 
     public String getDescription() {
-        return this.shortDescription + "\n" + this.longDescription + "\n"+"Visible Exit" + getExitString();
+        return this.shortDescription + "\n" + this.longDescription + "\n" + "Visible exits: " + getExitString() + "\n" + Joiner.on(", ").join(this.npcs);
     }
 
     public void addExit(Direction direction, Location location) {
@@ -35,11 +35,10 @@ public class Location {
     }
 
     private String getExitString() {
-        String exitString = "";
-        for (Direction direction : exit.keySet()) {
-            exitString += direction.getDirectionDescription() + " ";
-        }
-        return exitString;
+
+        List<Direction> locationExit = new ArrayList<>(exit.keySet());
+        Collections.sort(locationExit);
+        return Joiner.on(", ").join(locationExit);
     }
 
     public void addNpcs(NPC npc) {
@@ -55,7 +54,6 @@ public class Location {
         return false;
     }
 
-
     public NPC getNPC(String npcName) {
         for (NPC npc : this.npcs) {
             if (npc.getName().equalsIgnoreCase(npcName)) {
@@ -64,6 +62,4 @@ public class Location {
         }
         return null;
     }
-
-
 }

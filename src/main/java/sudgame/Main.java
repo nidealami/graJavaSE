@@ -1,40 +1,34 @@
-import java.util.Random;
+package sudgame;
+
+import repository.LocationRepository;
+import domain.Direction;
+import domain.NPC;
+import domain.Player;
 import java.util.Scanner;
 
 public class Main {
 
-
     public static void main(String[] args) {
-        System.out.println("Hejka");
+
+        LocationRepository locationRepository=new LocationRepository();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("What's your name?");
         String playerName = scanner.nextLine();
-        System.out.println("Hi " + playerName);
 
         Player player = new Player(playerName, 100, 10);
 
-        Location startLocation = new Location("Small Room", "You are in small room, darm one. Single bed only and books on the floor...");
-        Location secondLocation = new Location("Dark corridor", "...");
-
-        startLocation.addExit(Direction.N, secondLocation);
-        secondLocation.addExit(Direction.S, startLocation);
-
-        NPC ork = new NPC("Ork", 50, 5);
-
-        startLocation.addNpcs(ork);
-
-        player.setCurrentLocation(startLocation);
+        player.setCurrentLocation(locationRepository.getStartLocation());
 
         System.out.println(player.getCurrentLocationDescription());
 
         String command = "";
-        while (!command.equals("zakoncz")) {
+        while (!command.equals("quit")) {
             command = readPlayerInput(scanner);
 
             actOnCommand(command, player);
         }
-        System.out.println("Do zobaczenia!");
+        System.out.println("Goodbye!");
     }
 
     private static String readPlayerInput(Scanner scanner) {
