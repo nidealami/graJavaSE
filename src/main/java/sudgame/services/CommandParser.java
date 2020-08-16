@@ -9,6 +9,7 @@ import sudgame.FightStrategy;
 import sudgame.FightThread;
 
 public class CommandParser {
+
     public void actOnCommand(String playerCommand, Player player) {
         playerCommand = playerCommand.toLowerCase();
 
@@ -18,25 +19,28 @@ public class CommandParser {
         switch (splitted[0]) {
             case "n":
             case "north":
-                move(Direction.N, player);
+                command = new MoveCommand(Direction.N, player);
                 break;
             case "s":
             case "south":
-                move(Direction.S, player);
+                command = new MoveCommand(Direction.S, player);
                 break;
             case "w":
             case "west":
-                move(Direction.W, player);
+                command = new MoveCommand(Direction.W, player);
                 break;
             case "e":
             case "east":
-                move(Direction.E, player);
+                command = new MoveCommand(Direction.E, player);
                 break;
             case "kill":
                 attack(splitted[1], player);
                 break;
             default:
                 System.out.println("O co ci chodzi? Wybierz: n lub s lub w lub e");
+        }
+        if (command != null) {
+            command.execute();
         }
     }
 
@@ -58,13 +62,6 @@ public class CommandParser {
         t.start();
     }
 
-    public void move(Direction direction, Player player) {
-        boolean hasMoved = player.move(direction);
-        if (hasMoved) {
-            System.out.println(player.getCurrentLocationDescription());
-        } else {
-            System.out.println("nie możesz isc tedy");
-        }
-    }
+
 }
 

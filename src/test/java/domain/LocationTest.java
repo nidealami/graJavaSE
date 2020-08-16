@@ -1,9 +1,11 @@
-import domain.Direction;
-import domain.Location;
-import domain.NPC;
+package domain;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import sudgame.domain.Direction;
+import sudgame.domain.Location;
+import sudgame.domain.NPC;
 
 public class LocationTest {
     Location mainLocation;
@@ -17,8 +19,8 @@ public class LocationTest {
         mainLocation.addExit(Direction.N, northLocation);
         mainLocation.addExit(Direction.S, southLocation);
         NPC ork = new NPC("ork");
-        mainLocation.addNpcs(ork);
         NPC ork2 = new NPC("ork2");
+        mainLocation.addNpcs(ork);
         mainLocation.addNpcs(ork2);
     }
 
@@ -37,15 +39,15 @@ public class LocationTest {
         Assert.assertEquals("Same object", northLocation, nextLocation);
 
         Location nullLoc = mainLocation.getNextLocation(Direction.E);
-        Assert.assertNull("Non-existing location",nullLoc);
+        Assert.assertNull("Non-existing location", nullLoc);
     }
 
     @Test
     public void testGetNPC() {
 
         NPC getOrk = mainLocation.getNPC("ork");
-        Assert.assertEquals("Existing npc","ork",getOrk.getName());
+        Assert.assertEquals("Existing npc", "ork", getOrk.getName());
         NPC getOrk2 = mainLocation.getNPC("ork4");
-        Assert.assertNull("Non-existing npc",getOrk2);
+        Assert.assertNull("Non-existing npc", getOrk2);
     }
 }

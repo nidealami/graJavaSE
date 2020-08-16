@@ -1,4 +1,5 @@
 package sudgame.services;
 
-public class Command {
+public interface Command {
+    public String execute();
 }
