@@ -1,8 +1,9 @@
-package sudgame.domain;
+package domain;
 
 public class NPC {
 
     private String name;
+
     private Statistics stats;
 
     public NPC(String name) {

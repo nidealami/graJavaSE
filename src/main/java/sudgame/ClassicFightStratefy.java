@@ -1,7 +1,7 @@
 package sudgame;
 
-import sudgame.domain.NPC;
-import sudgame.domain.Player;
+import domain.NPC;
+import domain.Player;
 
 import java.util.Random;
 

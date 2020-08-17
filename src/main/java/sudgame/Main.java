@@ -1,8 +1,8 @@
 package sudgame;
 
-import sudgame.repository.LocationRepository;
-import sudgame.domain.Player;
-import sudgame.services.CommandParser;
+import repository.LocationRepository;
+import domain.Player;
+import services.CommandParser;
 
 import java.util.Scanner;
 
@@ -37,6 +37,5 @@ public class Main {
         String command = scanner.nextLine();
         return command;
     }
-
 }
 

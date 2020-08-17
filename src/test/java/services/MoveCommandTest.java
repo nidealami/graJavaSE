@@ -1,17 +1,17 @@
 package services;
 
-import sudgame.domain.Direction;
-import sudgame.domain.Location;
-import sudgame.domain.NPC;
-import sudgame.domain.Player;
+import domain.Direction;
+import domain.Location;
+import domain.NPC;
+import domain.Player;
 import org.junit.Before;
 import org.junit.Test;
-import sudgame.services.MoveCommand;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class MoveCommandTest {
+
     Location mainLocation;
     Location northLocation;
 
@@ -21,18 +21,18 @@ public class MoveCommandTest {
         northLocation = new Location("Second", "Long");
         mainLocation.addExit(Direction.N, northLocation);
         NPC ork = new NPC("ork");
-        mainLocation.addNpcs(ork);
+        mainLocation.addNpc(ork);
     }
 
     @Test
     public void moveIfProperDirectionIsSend() {
         Player p = new Player("TestPlayer");
         p.setCurrentLocation(mainLocation);
-        MoveCommand move = new MoveCommand(Direction.N,p);
+        MoveCommand move = new MoveCommand(Direction.N, p);
         String result = move.execute();
-        assertEquals(northLocation.getDescription(),result);
-
+        assertEquals(northLocation.getDescription(), result);
     }
+
     @Test
     public void returnInfoIfThereIsNoLocationInGivenDirection() {
         Player p = new Player("TestPlayer");
@@ -41,5 +41,4 @@ public class MoveCommandTest {
         String result = move.execute();
         assertEquals("You can't go that way.", result);
     }
-
 }

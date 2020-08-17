@@ -1,14 +1,14 @@
 package services;
 
-import sudgame.domain.Location;
-import sudgame.domain.Player;
+import domain.Location;
+import domain.Player;
 import org.junit.Before;
 import org.junit.Test;
-import sudgame.services.LookCommand;
 
 import static org.junit.Assert.assertEquals;
 
 public class LookCommandTest {
+
     private Location mainLocation;
 
     @Before

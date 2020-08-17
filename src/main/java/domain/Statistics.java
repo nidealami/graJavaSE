@@ -1,4 +1,4 @@
-package sudgame.domain;
+package domain;
 
 public class Statistics {
     private int health;

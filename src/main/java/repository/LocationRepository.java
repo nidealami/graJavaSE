@@ -1,8 +1,8 @@
-package sudgame.repository;
+package repository;
 
-import sudgame.domain.Direction;
-import sudgame.domain.Location;
-import sudgame.domain.NPC;
+import domain.Direction;
+import domain.Location;
+import domain.NPC;
 
 public class LocationRepository {
     Location startLocation;
